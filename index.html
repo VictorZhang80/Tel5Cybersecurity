@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tel5 Cybersecurity Services</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #343a40; /* Fallback dark background color */
+      margin: 0;
+      padding: 0; /* REMOVED: Body padding to allow full-width top section */
+      color: #f8f9fa; /* Lighter text for dark background */
+
+      /* Background Image Styles */
+      /* REMINDER: Replace 'YOUR_DARK_BACKGROUND_IMAGE_URL_HERE.jpg' with your actual background image URL */
+      background-image: url('YOUR_DARK_BACKGROUND_IMAGE_URL_HERE.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      position: relative; /* Needed for the ::before pseudo-element overlay */
+      min-height: 100vh; /* Ensure body takes full height for background to cover */
+    }
+
+    /* Dark Overlay for Readability */
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5); /* Adjusted opacity for better logo visibility */
+      z-index: -1; /* Place behind content but above background image */
+    }
+
+    /* NEW SECTION: Light-colored header band */
+    .top-header-light-section {
+      background-color: #e9ecef; /* Very light gray */
+      padding: 20px 40px; /* Padding inside this band */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow at the bottom */
+      margin-bottom: 40px; /* Space between light header and dark content below */
+      /* Ensure it sits above the body's dark overlay if necessary, but default z-index should be fine */
+      position: relative; /* Needed for z-index if overlapping elements */
+      z-index: 1; /* Bring to front if any elements below cause issues */
+    }
+
+    /* Header section to hold logo and title (now inside light section) */
+    .header-section {
+      display: flex; /* Use flexbox for side-by-side layout */
+      align-items: center; /* Vertically center items */
+      justify-content: center; /* Center the entire block */
+      /* margin-bottom removed as its on the parent container now */
+      text-align: center; /* Fallback */
+
+      /* Removed previous highlighting styles (handled by top-header-light-section) */
+      background-color: transparent;
+      background-image: none;
+      padding: 0;
+      border-radius: 0;
+      box-shadow: none;
+      max-width: fit-content; /* Still centers content within the light band */
+      margin-left: auto;
+      margin-right: auto;
+      border: none;
+    }
+
+    /* Logo container styles */
+    .logo-container {
+      margin-right: 15px; /* Space between logo and text */
+      flex-shrink: 0; /* Prevent logo from shrinking */
+    }
+
+    .logo {
+      max-width: 120px; /* Slightly larger logo for better visibility */
+      height: auto;
+      display: block; /* Ensures it behaves as a block element */
+      /* RECOMMENDATION: For this light background, ideally use a dark-colored logo image */
+    }
+
+    h1 {
+      color: #212529; /* ADJUSTED: Darker color for prominent heading on light background */
+      margin: 0; /* Remove default h1 margin to align with logo */
+      font-size: 2.5em; /* Adjust size if needed */
+      text-shadow: none; /* REMOVED: Text shadow, as it's usually not needed for dark text on light background */
+    }
+
+    /* NEW SECTION: Wrapper for the main content to retain padding */
+    .main-content-wrapper {
+      padding: 0 40px 40px 40px; /* Apply padding to the main content area */
+    }
+
+    h2 {
+      text-align: center;
+      color: #007bff; /* Brighter blue for subheadings */
+      margin-bottom: 30px;
+    }
+
+    .pricing-container {
+      display: flex;
+      gap: 30px; /* Increased gap */
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 70px; /* Increased bottom margin */
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.08); /* Semi-transparent white for cards */
+      backdrop-filter: blur(5px); /* Optional: Adds a subtle frosted glass effect */
+      border-radius: 12px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.3); /* Darker shadow for contrast */
+      padding: 30px; /* Increased padding */
+      width: 350px; /* Slightly wider cards */
+      transition: transform 0.2s ease-in-out;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border: 1px solid rgba(255, 255, 255, 0.1); /* Lighter, subtle border */
+    }
+
+    .card:hover {
+      transform: translateY(-8px); /* More pronounced hover effect */
+      box-shadow: 0 12px 24px rgba(0,0,0,0.5); /* Even darker shadow on hover */
+    }
+
+    .tier {
+      font-size: 1.7em; /* Slightly larger tier name */
+      margin-bottom: 15px;
+      color: #5bc0de; /* A slightly lighter blue for tier names */
+      font-weight: bold;
+      text-align: center; /* Center the tier name */
+    }
+
+    .bundle-desc {
+      font-size: 1em;
+      margin-bottom: 20px;
+      white-space: pre-wrap;
+      color: #f8f9fa; /* Light text for description */
+      line-height: 1.6; /* Improved line height for readability */
+      flex-grow: 1; /* Allows description to take up available space */
+    }
+
+    .price {
+      font-size: 1.2em;
+      font-weight: bold;
+      color: #28a745; /* Success color for pricing (still good contrast) */
+      margin-top: 15px;
+      text-align: center; /* Center the price */
+    }
+
+    .note {
+      font-size: 0.9em;
+      color: #ced4da; /* Lighter muted note color */
+      margin-bottom: 10px;
+      text-align: center; /* Center the note */
+    }
+
+    .cta-button {
+      display: block; /* Still a block element */
+      width: fit-content; /* Make button only as wide as its content */
+      margin-left: auto; /* Center the button */
+      margin-right: auto; /* Center the button */
+      padding: 12px 25px; /* Slightly more padding for a better look */
+      background-color: #007bff; /* Bootstrap primary color */
+      color: #fff;
+      text-align: center;
+      border-radius: 8px; /* More rounded buttons */
+      text-decoration: none;
+      margin-top: 25px;
+      transition: background-color 0.3s ease-in-out;
+      font-weight: bold; /* Bold button text */
+      border: none; /* Remove default button border */
+    }
+
+    .cta-button:hover {
+      background-color: #0056b3;
+    }
+
+    .report-section {
+      background: rgba(255, 255, 255, 0.08); /* Semi-transparent white for cards */
+      backdrop-filter: blur(5px); /* Optional: Adds a subtle frosted glass effect */
+      border-radius: 12px;
+      padding: 40px; /* Increased padding */
+      box-shadow: 0 6px 12px rgba(0,0,0,0.3); /* Darker shadow for contrast */
+      max-width: 1100px; /* Slightly wider report section */
+      margin: 0 auto 80px; /* Increased bottom margin */
+      border: 1px solid rgba(255, 255, 255, 0.1); /* Lighter, subtle border */
+    }
+
+    .report-section h2 {
+      margin-bottom: 30px;
+    }
+
+    .report-item {
+      margin-bottom: 30px; /* Increased spacing between report items */
+    }
+
+    .report-item strong {
+      color: #5bc0de; /* Brighter color for emphasis */
+      display: block;
+      font-size: 1.2em;
+      margin-bottom: 8px;
+    }
+
+    .report-item p {
+      margin: 0;
+      color: #f8f9fa; /* Light text for descriptions */
+      font-size: 1em;
+      line-height: 1.7; /* Improved line height for report descriptions */
+      /* No margin-bottom here, as link is inline */
+    }
+
+    .report-sample-link {
+      color: #007bff; /* Consistent blue link color */
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 0.95em;
+      margin-left: 8px; /* Space between text and link */
+      white-space: nowrap; /* Prevent the link from breaking onto a new line */
+    }
+
+    .report-sample-link:hover {
+      text-decoration: underline;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="top-header-light-section">
+    <div class="header-section">
+      <div class="logo-container">
+        <img src="https://cdn-hblnf.nitrocdn.com/QSzBGHZUaspjerJAfwSeotrutdqVlyCU/assets/images/optimized/rev-1374c1d/tel5.com.au/wp-content/uploads/2020/11/logo.png" alt="Tel5 Cybersecurity Logo" class="logo">
+      </div>
+      <h1>Tel5 Cybersecurity Services</h1>
+    </div>
+  </div>
+
+  <div class="main-content-wrapper">
+    <div class="pricing-container">
+
+      <div class="card">
+        <div class="tier">Basic</div>
+        <div class="bundle-desc">
+          Basic Monthly Security Assessment Report
+          1-hour security consultation
+          Top 3 risk findings with improvement checklist
+
+          *Choose one from six options
+        </div>
+        <div class="price">Monthly: AUD 50.00</div>
+        <div class="note">Add AUD 50 for selection of a specific report format.</div>
+        <div class="price">Annually: AUD 550.00</div>
+        <div class="note">*A one-year subscription includes one comlimentary month, with billing for only 11 months.</div>
+        <a href="https://tel5.com.au/contact-us/" class="cta-button">Select Basic</a>
+      </div>
+
+      <div class="card">
+        <div class="tier">Advanced</div>
+        <div class="bundle-desc">
+          Comprehensive Security Assessment Report
+          2-hour strategy session
+          Prioritized security improvement roadmap
+          Quarterly Security Inspection
+
+          *Choose Two from six options
+        </div>
+        <div class="price">Monthly: AUD 105.00</div>
+        <div class="note">Add AUD 50 for selection of a specific report format.</div>
+        <div class="price">Annually: AUD 1155.00</div>
+        <div class="note">*A one-year subscription includes one comlimentary month, with billing for only 11 months.</div>
+        <a href="https://tel5.com.au/contact-us/" class="cta-button">Select Advanced</a>
+      </div>
+
+      <div class="card">
+        <div class="tier">Premium</div>
+        <div class="bundle-desc">
+          Advanced Security Assessment Report
+          3-hour consultation and executive briefing
+          Customized roadmap with sorted solutions
+          Quarterly Executive Report for CIO Level
+          Automated Security Awareness Training
+          Quarterly On-site Security Inspection
+          Critical Events Response
+          On-site support
+
+          *All six reports included
+        </div>
+        <div class="price">Monthly: AUD 165.00</div>
+        <div class="price">Annually: AUD 1815.00</div>
+        <div class="note">*A one-year subscription includes one comlimentary month, with billing for only 11 months.</div>
+        <a href="https://tel5.com.au/contact-us/" class="cta-button">Select Premium</a>
+      </div>
+
+    </div>
+
+    <div class="report-section">
+      <h2>Assessment Report Options</h2>
+
+      <div class="report-item">
+        <strong>Network Full Detail Report:</strong>
+        <p>The Full Detail Report provides a complete assessment and documentation of Active Directory and Workgroup environments. Every aspect of the network from servers, workstations, users, groups, printers, network shares, applications, patching, to Internet access and speed test are documented in this detailed report. <a href="reportsamples/network_full_detail_sample.pdf" target="_blank" class="report-sample-link">View Sample Report (PDF)</a></p>
+      </div>
+
+      <div class="report-item">
+        <strong>Security Risk Report:</strong>
+        <p>This Security Risk Report is similar to other Risk Reports such as the Network Risk Report except that it focuses on security related issues. It includes an overall Risk Score, an overall Issues Score, as well as a summary list of issues discovered. This Risk Report identifies specific risks that are due to misconfigurations and violations of best practices. <a href="reportsamples/security_risk_report_sample.pdf" target="_blank" class="report-sample-link">View Sample Report (PDF)</a></p>
+      </div>
+
+      <div class="report-item">
+        <strong>Microsoft Cloud Risk Report:</strong>
+        <p>This Risk Report is similar to other Risk Reports such as network, and security except it covers Azure AD and the key Microsoft 365 services. It includes an overall Risk Score, an overall Issues Score, and a list of discovered issues based on Microsoft controls and best practices. <a href="reportsamples/microsoft_cloud_risk_report_sample.pdf" target="_blank" class="report-sample-link">View Sample Report (PDF)</a></p>
+      </div>
+
+      <div class="report-item">
+        <strong>Consolidated Security Report:</strong>
+        <p>Presents an intuitive computer-by-computer view including a grade for overall security health, antivirus, local firewalls, patches, and OS support. Quickly identifies problem machines. <a href="reportsamples/consolidated_security_report_sample.pdf" target="_blank" class="report-sample-link">View Sample Report (PDF)</a></p>
+      </div>
+
+      <div class="report-item">
+        <strong>Executive Summary:</strong>
+        <p>Summarizes criticality of issues across categories like network, hardware, software, passwords, Microsoft Cloud, and more. Includes Issue Score and potential data breach risk. <a href="reportsamples/executive_summary_sample.pdf" target="_blank" class="report-sample-link">View Sample Report (PDF)</a></p>
+      </div>
+
+      <div class="report-item">
+        <strong>User Security Awareness Report:</strong>
+        <p>Provides insight into employee security posture—training engagement, phishing simulation results, risk scores. Helps identify high-risk users and improve awareness. <a href="reportsamples/user_security_awareness_report_sample.pdf" target="_blank" class="report-sample-link">View Sample Report (PDF)</a></p>
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>
